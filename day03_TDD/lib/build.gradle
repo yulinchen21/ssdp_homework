@@ -17,13 +17,24 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation libs.junit
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api libs.commons.math3
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation libs.guava
+}
+
+test {
+    // discover and execute JUnit4-based tests
+    useJUnit()
+
+    // discover and execute TestNG-based tests
+    useTestNG()
+
+    // discover and execute JUnit Platform-based tests
+    useJUnitPlatform()
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
