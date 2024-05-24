@@ -3,12 +3,35 @@
  */
 package org.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 public class BowlingGameTest {
-    @Test public void someLibraryMethodReturnsTrue() {
-        BowlingGame bowlingGame = new BowlingGame();
-        assertTrue("someLibraryMethod should return 'true'", bowlingGame.someMethod());
+
+    private BowlingGame game;
+
+    @BeforeEach
+    public void setUp() {
+        game = new BowlingGame();
+    }
+
+    private void rollMany(int n, int pins) {
+        for (int i = 0; i < n; i++) {
+            game.roll(pins);
+        }
+    }
+
+    @Test
+    public void testAllZeros() {
+        rollMany(20, 0);
+        assertEquals(0, game.score());
+    }
+
+    @Test
+    public void testAllOnes() {
+        rollMany(20, 1);
+        assertEquals(20, game.score());
     }
 }
