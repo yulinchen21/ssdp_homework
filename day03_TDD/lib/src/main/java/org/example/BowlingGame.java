@@ -10,10 +10,14 @@ import java.util.List;
 public class BowlingGame {
   private static final int MAX_FRAMES = 10;
   private static final int MAX_PINS = 10;
-  private List<Integer> rolls = new ArrayList<>();
+  private final List<Roll> rolls;
+
+  public BowlingGame() {
+    rolls = new ArrayList<>();
+  }
 
   public void roll(int pins) {
-    rolls.add(pins);
+    rolls.add(new Roll(pins));
   }
 
   public int score() {
@@ -21,38 +25,67 @@ public class BowlingGame {
     int rollIndex = 0;
 
     for (int frame = 0; frame < MAX_FRAMES; frame++) {
-      if (isStrike(rollIndex)) { // STRIKE
-        score += MAX_PINS + strikeBonus(rollIndex);
-        rollIndex++;
-      } else if (isSpare(rollIndex)) { // SPARE
-        score += MAX_PINS + spareBonus(rollIndex);
-        rollIndex += 2;
-      } else { // Normal
-        score += sumOfBallsInFrame(rollIndex);
-        rollIndex += 2;
-      }
+      int frameScore = calculateFrameScore(rollIndex);
+      score += frameScore;
+      rollIndex +=  getRollType(rollIndex) == RollType.STRIKE ? 1 : 2;
     }
 
     return score;
   }
 
-  private boolean isStrike(int rollIndex) {
-    return rolls.get(rollIndex) == MAX_PINS;
-  }
+  private int calculateFrameScore(int rollIndex) {
+    RollType rollType = getRollType(rollIndex);
 
-  private boolean isSpare(int rollIndex) {
-    return rolls.get(rollIndex) + rolls.get(rollIndex + 1) == MAX_PINS;
+    switch (rollType) {
+      case STRIKE:
+        return MAX_PINS + sumOfBallsInFrame(rollIndex + 1);
+      case SPARE:
+        return MAX_PINS + rolls.get(rollIndex + 2).getPins();
+      default:
+        return sumOfBallsInFrame(rollIndex);
+    }
   }
 
   private int strikeBonus(int rollIndex) {
-    return rolls.get(rollIndex + 1) + rolls.get(rollIndex + 2);
+    return rolls.get(rollIndex + 1).getPins() + rolls.get(rollIndex + 2).getPins();
   }
 
   private int spareBonus(int rollIndex) {
-    return rolls.get(rollIndex + 2);
+    return rolls.get(rollIndex + 2).getPins();
   }
 
   private int sumOfBallsInFrame(int rollIndex) {
-    return rolls.get(rollIndex) + rolls.get(rollIndex + 1);
+    return rolls.get(rollIndex).getPins() + rolls.get(rollIndex + 1).getPins();
+  }
+
+
+  private RollType getRollType(int rollIndex) {
+    int pins = rolls.get(rollIndex).getPins();
+
+    if (pins == MAX_PINS) {
+      return RollType.STRIKE;
+    } else if (pins + rolls.get(rollIndex + 1).getPins() == MAX_PINS) {
+      return RollType.SPARE;
+    } else {
+      return RollType.NORMAL;
+    }
+  }
+
+  private enum RollType {
+    STRIKE,
+    SPARE,
+    NORMAL
+  }
+
+  private static class Roll {
+    private final int pins;
+
+    public Roll(int pins) {
+      this.pins = pins;
+    }
+
+    public int getPins() {
+      return pins;
+    }
   }
 }
