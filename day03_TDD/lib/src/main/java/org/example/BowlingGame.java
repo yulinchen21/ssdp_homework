@@ -3,26 +3,17 @@
  */
 
 package org.example;
-
 public class BowlingGame {
-  private final int[] rolls = new int[21]; // Maximum rolls in a game
-  private int currentRoll = 0;
+  private int roll1;
+  private int roll2;
 
-  public void roll(int pins) {
-    rolls[currentRoll++] = pins;
+  public BowlingGame(int roll1, int roll2) {
+    this.roll1 = roll1;
+    this.roll2 = roll2;
   }
 
   public int score() {
-    int score = 0;
-    int frameIndex = 0;
-    for (int frame = 0; frame < 10; frame++) {
-      score += sumOfBallsInFrame(frameIndex);
-      frameIndex += 2;
-    }
-    return score;
+    return roll1 + roll2;
   }
 
-  private int sumOfBallsInFrame(int frameIndex) {
-    return rolls[frameIndex] + rolls[frameIndex + 1];
-  }
 }

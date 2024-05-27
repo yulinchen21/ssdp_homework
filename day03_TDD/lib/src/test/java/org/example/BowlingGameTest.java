@@ -4,34 +4,15 @@
 package org.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class BowlingGameTest {
-
-    private BowlingGame game;
-
-    @BeforeEach
-    public void setUp() {
-        game = new BowlingGame();
-    }
-
-    private void rollMany(int n, int pins) {
-        for (int i = 0; i < n; i++) {
-            game.roll(pins);
-        }
-    }
-
     @Test
-    public void testAllZeros() {
-        rollMany(20, 0);
-        assertEquals(0, game.score());
-    }
+    public void singleGame() {
+        BowlingGame game1 = new BowlingGame(0, 0); // 两次扔球都没有碰到球
+        assertEquals(0, game1.score());
 
-    @Test
-    public void testAllOnes() {
-        rollMany(20, 1);
-        assertEquals(20, game.score());
+        BowlingGame game2 = new BowlingGame(3, 4); // 两次扔球都没有将球瓶全部击倒
+        assertEquals(7, game2.score());
     }
 }
