@@ -6,14 +6,25 @@ package org.example;
 public class BowlingGame {
   private int roll1;
   private int roll2;
+  private Integer roll3;
 
   public BowlingGame(int roll1, int roll2) {
     this.roll1 = roll1;
     this.roll2 = roll2;
   }
 
+  public BowlingGame(int roll1, int roll2, int roll3) {
+    this.roll1 = roll1;
+    this.roll2 = roll2;
+    this.roll3 = roll3;
+  }
+
   public int score() {
-    return roll1 + roll2;
+    if (roll1 == 10) {
+      return 10 + roll2 + (roll3 != null ? roll3 : 0);
+    } else {
+      return roll1 + roll2;
+    }
   }
 
 }

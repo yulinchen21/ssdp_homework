@@ -14,5 +14,8 @@ public class BowlingGameTest {
 
         BowlingGame game2 = new BowlingGame(3, 4); // 两次扔球都没有将球瓶全部击倒
         assertEquals(7, game2.score());
+
+        BowlingGame game3 = new BowlingGame(10, 3, 4); // STRIKE, 然后3和4倒瓶
+        assertEquals(17, game3.score());
     }
 }
