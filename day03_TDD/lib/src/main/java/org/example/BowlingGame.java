@@ -3,10 +3,13 @@
  */
 
 package org.example;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BowlingGame {
+  private static final int MAX_FRAMES = 10;
+  private static final int MAX_PINS = 10;
   private List<Integer> rolls = new ArrayList<>();
 
   public void roll(int pins) {
@@ -17,12 +20,12 @@ public class BowlingGame {
     int score = 0;
     int rollIndex = 0;
 
-    for (int frame = 0; frame < 10; frame++) {
+    for (int frame = 0; frame < MAX_FRAMES; frame++) {
       if (isStrike(rollIndex)) { // STRIKE
-        score += 10 + strikeBonus(rollIndex);
+        score += MAX_PINS + strikeBonus(rollIndex);
         rollIndex++;
       } else if (isSpare(rollIndex)) { // SPARE
-        score += 10 + spareBonus(rollIndex);
+        score += MAX_PINS + spareBonus(rollIndex);
         rollIndex += 2;
       } else { // Normal
         score += sumOfBallsInFrame(rollIndex);
@@ -34,11 +37,11 @@ public class BowlingGame {
   }
 
   private boolean isStrike(int rollIndex) {
-    return rolls.get(rollIndex) == 10;
+    return rolls.get(rollIndex) == MAX_PINS;
   }
 
   private boolean isSpare(int rollIndex) {
-    return rolls.get(rollIndex) + rolls.get(rollIndex + 1) == 10;
+    return rolls.get(rollIndex) + rolls.get(rollIndex + 1) == MAX_PINS;
   }
 
   private int strikeBonus(int rollIndex) {
