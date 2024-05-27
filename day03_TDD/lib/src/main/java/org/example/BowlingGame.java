@@ -3,28 +3,53 @@
  */
 
 package org.example;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BowlingGame {
-  private int roll1;
-  private int roll2;
-  private Integer roll3;
+  private List<Integer> rolls = new ArrayList<>();
 
-  public BowlingGame(int roll1, int roll2) {
-    this.roll1 = roll1;
-    this.roll2 = roll2;
-  }
-
-  public BowlingGame(int roll1, int roll2, int roll3) {
-    this.roll1 = roll1;
-    this.roll2 = roll2;
-    this.roll3 = roll3;
+  public void roll(int pins) {
+    rolls.add(pins);
   }
 
   public int score() {
-    if (roll1 == 10) {
-      return 10 + roll2 + (roll3 != null ? roll3 : 0);
-    } else {
-      return roll1 + roll2;
+    int score = 0;
+    int rollIndex = 0;
+
+    for (int frame = 0; frame < 10; frame++) {
+      if (isStrike(rollIndex)) { // STRIKE
+        score += 10 + strikeBonus(rollIndex);
+        rollIndex++;
+      } else if (isSpare(rollIndex)) { // SPARE
+        score += 10 + spareBonus(rollIndex);
+        rollIndex += 2;
+      } else { // Normal
+        score += sumOfBallsInFrame(rollIndex);
+        rollIndex += 2;
+      }
     }
+
+    return score;
   }
 
+  private boolean isStrike(int rollIndex) {
+    return rolls.get(rollIndex) == 10;
+  }
+
+  private boolean isSpare(int rollIndex) {
+    return rolls.get(rollIndex) + rolls.get(rollIndex + 1) == 10;
+  }
+
+  private int strikeBonus(int rollIndex) {
+    return rolls.get(rollIndex + 1) + rolls.get(rollIndex + 2);
+  }
+
+  private int spareBonus(int rollIndex) {
+    return rolls.get(rollIndex + 2);
+  }
+
+  private int sumOfBallsInFrame(int rollIndex) {
+    return rolls.get(rollIndex) + rolls.get(rollIndex + 1);
+  }
 }
