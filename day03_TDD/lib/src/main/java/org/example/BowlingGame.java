@@ -40,13 +40,17 @@ public class BowlingGame {
   private int calculateFrameScore(int rollIndex) {
     RollType rollType = getRollType(rollIndex);
     return switch (rollType) {
-      case STRIKE -> MAX_PINS + sumOfBallsInFrame(rollIndex + 1);
-      case SPARE -> MAX_PINS + getPins(rollIndex + 2);
-      default -> sumOfBallsInFrame(rollIndex);
+      case STRIKE -> MAX_PINS + sumOfPinsInFrame(rollIndex + 1);
+      case SPARE -> MAX_PINS + pinsOfFirstBallInFrame(rollIndex + 2);
+      default -> sumOfPinsInFrame(rollIndex);
     };
   }
 
-  private int sumOfBallsInFrame(int rollIndex) {
+  private int pinsOfFirstBallInFrame(final int rollIndex) {
+    return getPins(rollIndex);
+  }
+
+  private int sumOfPinsInFrame(int rollIndex) {
     return getPins(rollIndex) + getPins(rollIndex + 1);
   }
 
