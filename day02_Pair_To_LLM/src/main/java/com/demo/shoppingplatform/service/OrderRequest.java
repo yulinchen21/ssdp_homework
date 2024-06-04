@@ -1,5 +1,6 @@
 package com.demo.shoppingplatform.service;
 
+import com.demo.shoppingplatform.model.OrderItem;
 import java.util.List;
 
 public class OrderRequest {

@@ -5,6 +5,7 @@ import com.demo.shoppingplatform.exception.PriceChangedException;
 import com.demo.shoppingplatform.exception.ProductNotFoundException;
 import com.demo.shoppingplatform.exception.UnpaidOrderException;
 import com.demo.shoppingplatform.model.Order;
+import com.demo.shoppingplatform.model.OrderItem;
 import com.demo.shoppingplatform.model.Product;
 import com.demo.shoppingplatform.repository.OrderRepository;
 import com.demo.shoppingplatform.repository.ProductRepository;

@@ -1,4 +1,4 @@
-package com.demo.shoppingplatform.service;
+package com.demo.shoppingplatform.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
