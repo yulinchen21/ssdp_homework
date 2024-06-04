@@ -19,4 +19,9 @@ public class ProductService {
     Pageable pageable = PageRequest.of(page, size);
     return productRepository.findAll(pageable).getContent();
   }
+
+  public Product getProductById(Long productId) {
+    return productRepository.findById(productId)
+        .orElseThrow(() -> new RuntimeException("Product not found"));
+  }
 }
