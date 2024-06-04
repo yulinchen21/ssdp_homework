@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
+@SuppressWarnings({"PMD.DataClass", "PMD.UncommentedEmptyConstructor"})
 public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

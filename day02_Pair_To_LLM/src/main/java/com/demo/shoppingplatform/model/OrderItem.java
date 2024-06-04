@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+@SuppressWarnings({"PMD.DataClass", "PMD.UncommentedEmptyConstructor"})
 public class OrderItem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +15,6 @@ public class OrderItem {
   private int quantity;
   private double price; // Assuming price is a field in OrderItem
 
-  // Constructors
   public OrderItem() {}
 
   public OrderItem(Long productId, int quantity, double price) {
@@ -23,7 +23,6 @@ public class OrderItem {
     this.price = price;
   }
 
-  // Getters and Setters
   public Long getProductId() {
     return productId;
   }

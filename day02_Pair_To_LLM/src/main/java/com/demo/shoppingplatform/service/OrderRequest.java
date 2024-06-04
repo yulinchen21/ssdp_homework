@@ -3,12 +3,10 @@ package com.demo.shoppingplatform.service;
 import com.demo.shoppingplatform.model.OrderItem;
 import java.util.List;
 
+@SuppressWarnings({"PMD.DataClass"})
 public class OrderRequest {
   private Long customerId;
   private List<OrderItem> items;
-
-  // Constructors
-  public OrderRequest() {}
 
   public OrderRequest(Long customerId, List<OrderItem> items) {
     this.customerId = customerId;

@@ -33,12 +33,8 @@ public class ProductController {
       @RequestParam(defaultValue = "1") int page,
       @RequestParam(defaultValue = "15") int size) {
 
-    if (size > 30) {
-      size = 30;
-    }
-
     // Page numbers in Spring Data JPA start from 0
-    return productService.getProducts(page - 1, size);
+    return productService.getProducts(page - 1, size > 30 ? 30 : size);
   }
 
   @PostMapping("/orders")
@@ -47,7 +43,8 @@ public class ProductController {
     try {
       Order order = orderService.processOrderRequest(orderRequest);
       return ResponseEntity.status(HttpStatus.CREATED)
-          .body("Order created successfully. Order ID: " + order.getId() + ". Please proceed to payment.");
+          .body("Order created successfully. Order ID: " + order.getId() +
+              ". Please proceed to payment.");
     } catch (UnpaidOrderException | ProductNotFoundException | InsufficientStockException |
              PriceChangedException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

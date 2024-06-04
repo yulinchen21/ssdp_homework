@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@SuppressWarnings({"PMD.DataClass", "PMD.UncommentedEmptyConstructor"})
 public class Order {
 
   @Id
@@ -21,7 +22,6 @@ public class Order {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> items;
 
-  // Constructors
   public Order(List<OrderItem> items) {
     this.items = items;
   }
