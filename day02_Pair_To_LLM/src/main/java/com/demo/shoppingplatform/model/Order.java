@@ -2,9 +2,9 @@ package com.demo.shoppingplatform.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 
@@ -17,7 +17,6 @@ public class Order {
   private Long customerId;
   private String status;
   private Double totalAmount;
-
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItem> items;
